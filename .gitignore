@@ -1,0 +1,15 @@
+# 認証情報（絶対にコミットしない）
+credentials.json
+token.json
+client_secret*
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+venv/
+.env
+
+# IDE
+.vscode/
+.idea/
