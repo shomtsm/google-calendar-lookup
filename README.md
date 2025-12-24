@@ -1,3 +1,95 @@
+# Google Calendar Event Information Tool
+
+A script that uses the Google Calendar API to retrieve detailed event information including creation date, update date, and creator.
+
+## Available Information
+
+- Event title & description
+- Start/End datetime
+- **Creation datetime (created)**
+- **Last updated datetime (updated)**
+- **Creator**
+- Organizer
+- Attendee list and response status
+- Event status
+- Recurrence settings
+
+## Setup Instructions
+
+### 1. Google Cloud Console Configuration
+
+1. Access [Google Cloud Console](https://console.cloud.google.com/)
+2. Create a new project (or select an existing one)
+3. Select "APIs & Services" → "Library" from the left menu
+4. Search for "Google Calendar API" and enable it
+5. Select "APIs & Services" → "Credentials"
+6. Select "Create Credentials" → "OAuth client ID"
+7. Choose "Desktop app" as the application type
+8. After creation, download the JSON file
+9. Rename the downloaded file to `credentials.json` and place it in this directory
+
+### 2. OAuth Consent Screen Configuration
+
+OAuth consent screen configuration is required for first-time use:
+
+1. Select "APIs & Services" → "OAuth consent screen"
+2. Choose "External" for user type
+3. Enter required information (app name, email address, etc.)
+4. Add ".../auth/calendar.readonly" scope
+5. Add your Google account as a test user
+
+### 3. Python Environment Setup
+
+```bash
+# Create virtual environment (recommended)
+python3 -m venv venv
+source venv/bin/activate
+
+# Install dependencies
+pip install -r requirements.txt
+```
+
+## Usage
+
+```bash
+python get_event_info.py
+```
+
+Interactive prompts will guide you to:
+1. Select a calendar
+2. Enter search keywords (optional)
+3. Specify search period
+4. Select an event from the list to view details
+
+## Notes
+
+- **About Modification History**: The Google Calendar API does not provide complete modification history. Only the "last updated datetime" can be retrieved. If you need detailed change history, you'll need to build a separate system that periodically saves event information and compares differences.
+
+- **About Authentication**: On first run, a browser will open requesting Google account authentication. After authentication, `token.json` will be created and subsequent runs will log in automatically.
+
+- **Scope**: This script uses read-only (`calendar.readonly`) scope and does not modify the calendar.
+
+## File Structure
+
+```
+.
+├── README.md
+├── requirements.txt
+├── get_event_info.py      # Main script
+├── credentials.json       # ← Place manually (not in Git)
+└── token.json            # ← Auto-generated (not in Git)
+```
+
+## Troubleshooting
+
+### "credentials.json not found" Error
+Download the OAuth client ID JSON from Google Cloud Console and place it as `credentials.json`.
+
+### Authentication Error
+Delete `token.json` and re-authenticate.
+
+---
+
 # Google Calendar イベント情報取得ツール
 
 Google Calendar APIを使用して、イベントの作成日時・更新日時・作成者などの詳細情報を取得するスクリプトです。
